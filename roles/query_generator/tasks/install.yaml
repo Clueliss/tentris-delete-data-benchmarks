@@ -1,0 +1,36 @@
+- name: Create temporary download directory
+  tempfile:
+    state: directory
+    suffix: query_generator
+  register: tempdir
+
+- name: Copy build script
+  copy:
+    src: clone_and_build_query_generator.sh
+    dest: "{{ tempdir.path }}"
+
+- name: Build query generator
+  shell: "bash clone_and_build_query_generator.sh"
+  args:
+    chdir: "{{ tempdir.path }}"
+  register: debug_qg_build
+
+- debug: msg="{{ debug_qg_build.stdout_lines }}"
+- debug: msg="{{ debug_qg_build.stderr_lines }}"
+
+- name: Create install dir
+  file:
+    path: "{{ target_dir }}/query_generator"
+    state: directory
+
+- name: Install query generator
+  copy:
+    remote_src: yes
+    src: "{{ tempdir.path }}/sparql-delete-data-generator/sparql_delete_data_generator"
+    dest: "{{ target_dir }}/query_generator/sparql_delete_data_generator"
+    mode: 0755
+
+- name: Delete tempdir
+  file: 
+    path: "{{ tempdir.path }}"
+    state: absent

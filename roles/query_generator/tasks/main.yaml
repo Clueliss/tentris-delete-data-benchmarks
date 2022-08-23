@@ -1,0 +1,7 @@
+- name: Check for query generator
+  stat:
+    path: "{{ target_dir }}/query_generator/sparql_delete_data_generator"
+  register: query_generator
+
+- include: install.yaml
+  when: not query_generator.stat.exists

@@ -10,12 +10,12 @@ tasks:
     configuration:
       noOfQueryMixes: {{ iguana_query_mixes_limit }}
       queryHandler:
-        className: "InstancesQueryHandler"
+        className: "DelimInstancesQueryHandler"
       workers:
         - threads: {{ item[2].number }}
-          className: "HttpGetWorker"
+          className: "HttpPostWorker"
           language: "lang.SIMPLE"
-          responseType: "application/sparql-results+json"
+          contentType: "application/sparql-update"
           queriesFile: "{{ item[1].queries_path }}"
           timeOut: {{ iguana_query_timeout }}
 

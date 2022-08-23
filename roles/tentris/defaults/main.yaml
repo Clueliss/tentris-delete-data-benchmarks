@@ -1,5 +1,2 @@
 tentris_versions:
-  - 1.0.7.1
-  - 1.1.2_lsb_unused_1
-  - 1.1.2_lsb_unused_0
-  - 1.1.2_hashing_only
+  - 1.3.0-entry-removal

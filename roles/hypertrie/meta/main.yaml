@@ -1,4 +1,4 @@
 dependencies:
   - role: base
   - role: build_common
-  - role: hypertrie
+  - role: conan_server

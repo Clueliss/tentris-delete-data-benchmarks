@@ -1,0 +1,7 @@
+- name: Check for tentris
+  stat:
+    path: "{{ target_dir }}/triplestores/tentris/{{ tentris_version }}/tentris_server"
+  register: tentris
+
+- include: install.yaml
+  when: not tentris.stat.exists

@@ -9,8 +9,7 @@
   become: yes
   apt:
     package:
-      - gcc
-      - g++
+      - clang-14
 
 - name: Install git
   become: yes
@@ -43,17 +42,5 @@
 - name: Install Docker
   become: yes
   apt:
-    name:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-compose-plugin
-
-- name: Add user to Docker group
-  become: yes
-  user:
-    name: "{{ ansible_user }}"
-    groups: docker
-
-- name: Reset connection so that user being added to docker group takes effect
-  meta: reset_connection
+    package:
+      - podman-docker

@@ -12,8 +12,33 @@
 - include: download.yaml
   when: not dataset2015_nt.stat.exists
 
-- name: Download DBpedia queries
-  get_url:
-    url: https://hobbitdata.informatik.uni-leipzig.de/tentris_compression/feasible-DBpedia-bgp-v2.txt
-    checksum: sha1:10c397a57f4a7d3844194c214cfb2c26ab132d01
-    dest: "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
+- name: Check for compressed DBpedia2015 dataset
+  stat:
+    path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.compressed_nt"
+  register: compressed_dataset
+
+- name: Prepare DBpedia query generation
+  command:
+    argv:
+      - "{{ target_dir }}/query_generator/sparql_delete_data_generator"
+      - compress
+      - -o 
+      - "{{ target_dir }}/datasets/dbpedia2015/dbpedia.compressor_state"
+      - "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.nt"
+      - "{{ target_dir }}/datasets/dbpedia2015/changesets"
+  when: not compressed_dataset.stat.exists
+
+- name: Generate DBpedia queries
+  command:
+    argv:
+      - "{{ target_dir }}/query_generator/sparql_delete_data_generator"
+      - generate
+      - -s
+      - "{{ target_dir }}/datasets/dbpedia2015/dbpedia.compressor_state"
+      - -i
+      - "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.compressed_nt"
+      - -c
+      - "{{ target_dir }}/datasets/dbpedia2015/changesets"
+      - -o
+      - "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
+      - "{{ dbpedia_query_specs }}"

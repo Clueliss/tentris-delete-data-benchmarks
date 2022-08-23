@@ -1,0 +1,24 @@
+- name: Check for hypertrie source
+  stat:
+    path: "~/hypertrie_code_{{ hypertrie_version }}"
+  register: hypertrie_code_dir
+
+- name: copy hypertrie source
+  when: not hypertrie_code_dir.stat.exists
+  copy:
+    src: /home/liss/Netzwerk/lpf-sabertooth/home/dev/hypertrie-private/
+    dest: "~/hypertrie_code_{{ hypertrie_version }}"
+
+- name: copy build script
+  copy:
+    src: build_hypertrie.sh
+    dest: '~'
+
+- name: build hypertrie
+  shell: 'bash build_hypertrie.sh {{ hypertrie_version }}'
+  args:
+    chdir: '~'
+  register: debug_hypertrie
+
+- debug: msg="{{ debug_hypertrie.stdout_lines }}"
+- debug: msg="{{ debug_hypertrie.stderr_lines }}"

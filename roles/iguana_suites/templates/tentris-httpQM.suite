@@ -3,7 +3,7 @@ datasets:
 
 connections:
   - name: "tentris-{{ item[0] }}"
-    endpoint: "http://localhost:9080/stream"
+    endpoint: "http://localhost:9080/sparql-update/"
 
 tasks:
   - className: "Stresstest"
@@ -11,12 +11,12 @@ tasks:
       # 1 hour (time Limit is in ms)
       noOfQueryMixes: {{ iguana_query_mixes_limit }}
       queryHandler:
-        className: "InstancesQueryHandler"
+        className: "DelimInstancesQueryHandler"
       workers:
         - threads: {{ item[2].number }}
-          className: "HttpGetWorker"
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
           language: "lang.SIMPLE"
-          responseType: "application/sparql-results+json"
           queriesFile: "{{ item[1].queries_path }}"
           timeOut: {{ iguana_query_timeout }}
 
