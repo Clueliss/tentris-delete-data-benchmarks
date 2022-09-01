@@ -3,7 +3,8 @@ datasets:
 
 connections:
   - name: "tentris-{{ item[0] }}"
-    endpoint: "http://localhost:9080/sparql-update/"
+    endpoint: "http://localhost:9080/stream"
+    updateEndpoint: "http://localhost:9080/sparql-update/"
 
 tasks:
   - className: "Stresstest"

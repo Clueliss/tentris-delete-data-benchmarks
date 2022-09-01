@@ -3,7 +3,8 @@ datasets:
 
 connections:
   - name: "{{ item[0].name }}"
-    endpoint: "{{ item[0].connection_url | replace('%d', item[1].name) }}"
+    endpoint: "{{ item[0].endpoint | replace('%d', item[1].name) }}"
+    updateEndpoint: endpoint: "{{ item[0].updateEndpoint | replace('%d', item[1].name) }}"
 
 tasks:
   - className: "Stresstest"
