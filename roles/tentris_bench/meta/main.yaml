@@ -12,4 +12,3 @@ dependencies:
   - role: loaders
   - role: iguana
   - role: iguana_suites
-  - role: parse_sparql_results

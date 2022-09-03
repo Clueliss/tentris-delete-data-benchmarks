@@ -1,23 +1,32 @@
-- name: Check for the tentris source
-  stat:
-    path: "~/tentris_code_{{ tentris_version }}"
-  register: tentris_code_dir
+- name: Build hypertrie
+  include_role:
+    name: hypertrie
 
-- name: copy tentris source
-  when: not tentris_code_dir.stat.exists
-  copy:
-    src: /home/liss/Netzwerk/lpf-sabertooth/home/dev/tentris-private/
-    dest: "~/tentris_code_{{ tentris_version }}"
+- name: Create temporary build directory
+  tempfile:
+    state: directory
+    suffix: tentris
+  register: tempdir
 
-- name: copy script
+- name: Copy tentris source
+  synchronize:
+    src: "{{ tentris_local_dir }}/"
+    dest: "{{ tempdir.path }}/tentris_code_{{ tentris_version }}/"
+    archive: no
+    recursive: yes
+    rsync_opts:
+      - --exclude
+      - "'cmake-build*'"
+
+- name: Copy build script
   copy:
     src: build_tentris.sh
-    dest: '~'
+    dest: "{{ tempdir.path }}"
 
 - name: Build Tentris binaries
-  shell: 'bash build_tentris.sh {{ tentris_version }}'
+  shell: 'bash build_tentris.sh {{ tentris_version }} {{ conan_server_tempdir.path }}'
   args:
-    chdir: '~'
+    chdir: "{{ tempdir.path }}"
   register: debug_tentris
 
 - debug: msg="{{ debug_tentris.stdout_lines }}"
@@ -32,13 +41,23 @@
 - name: Install tentris_server
   copy:
     remote_src: yes
-    src: "~/tentris_{{ tentris_version }}/tentris_server"
+    src: "{{ tempdir.path }}/tentris_{{ tentris_version }}/tentris_server"
     dest: "{{ target_dir }}/triplestores/tentris/{{ tentris_version }}/tentris_server"
     mode: 0755
 
 - name: Install tentris_loader
   copy:
     remote_src: yes
-    src: "~/tentris_{{ tentris_version }}/tentris_loader"
+    src: "{{ tempdir.path }}/tentris_{{ tentris_version }}/tentris_loader"
     dest: "{{ target_dir }}/triplestores/tentris/{{ tentris_version }}/tentris_loader"
     mode: 0755
+
+- name: Remove build directory
+  file:
+    path: "{{ tempdir.path }}"
+    state: absent
+
+- name: Remove conan server dir
+  include_role:
+    name: conan_server
+    tasks_from: teardown

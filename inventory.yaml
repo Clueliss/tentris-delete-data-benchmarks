@@ -7,3 +7,5 @@ all:
       ansible_user: liss
 
       graphdb_download_uuid: ""
+      hypertrie_local_dir: ../hypertrie-private
+      tentris_local_dir: ../tentris-private

@@ -1,14 +1,27 @@
 #!/bin/bash
 
-hypertrie_version="$1"
-hypertrie_code_dir="hypertrie_code_${hypertrie_version}"
+set -e
 
-cd "${hypertrie_code_dir}" || exit
+release() {
+    source scripts/internal/find_conan.sh
 
-conan_server > /dev/null &
+    find_conan
+    
+    conan_profile="Release_clang-14_hypertrie_profile"
 
-conan user -r local -p hypertrie hypertrie
-bash ./scripts/release.sh Release clang 14
+    hypertrie_deploy_version=$(conan inspect . --raw version)
+
+    conan remove -f "hypertrie/$hypertrie_deploy_version@dice-group/stable" || true
+    conan create . "hypertrie/$hypertrie_deploy_version@dice-group/stable" --build missing -e hypertrie_deploy_version="$hypertrie_deploy_version" --profile ${conan_profile}
+    conan upload "hypertrie/$hypertrie_deploy_version@dice-group/stable" --force --all -r local
+}
+
+
+conan_server_dir="$1"
+conan_server --server_dir "$conan_server_dir" &
+
+cd hypertrie_code
+release
 
 sleep 5
 exit 0

@@ -4,9 +4,10 @@ datasets:
 connections:
   - name: "{{ item[0].name }}"
     endpoint: "{{ item[0].endpoint | replace('%d', item[1].name) }}"
-    updateEndpoint: endpoint: "{{ item[0].updateEndpoint | replace('%d', item[1].name) }}"
+    updateEndpoint: "{{ item[0].updateEndpoint | replace('%d', item[1].name) }}"
 
 tasks:
+{% for type in item[1].query_types %}
   - className: "Stresstest"
     configuration:
       # 1 hour (time Limit is in ms)
@@ -16,10 +17,10 @@ tasks:
       workers:
         - threads: {{ item[2].number }}
           className: "HttpPostWorker"
-          language: "lang.SIMPLE"
           contentType: "application/sparql-update"
-          queriesFile: "{{ item[1].queries_path }}"
+          queriesFile: "{{ item[1].queries_path | replace('%order', type.order) | replace('%type', type.type | default('')) }}"
           timeOut: {{ iguana_query_timeout }}
+{% endfor %}
 
 preScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item[0].name }}/{{ item[1].name }}/{{ item[2].number }}-start.sh"
 postScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item[0].name }}/stop.sh"

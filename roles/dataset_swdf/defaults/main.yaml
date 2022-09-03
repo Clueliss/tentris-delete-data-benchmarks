@@ -1,1 +1,5 @@
 swdf_query_specs: 10x100 10x1000 10x10000 10x100000
+swdf_query_types:
+    - order: as-specified
+    - order: sorted-size-asc
+    - order: sorted-size-desc

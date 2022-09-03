@@ -1,1 +1,6 @@
-dbpedia_query_specs: ""
+dbpedia_query_specs: 10x100 10x1000
+dbpedia_query_types:
+  - order: as-specified
+    type: as-is
+  - order: as-specified
+    type: fixed-size

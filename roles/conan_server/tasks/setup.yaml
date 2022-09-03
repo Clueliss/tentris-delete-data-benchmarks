@@ -1,0 +1,35 @@
+- name: Install python
+  become: yes
+  apt:
+    package:
+      - python3
+      - python3-pip
+
+- name: install conan server
+  pip:
+    name: conan
+
+- name: Create a temporary conan server config directory
+  tempfile:
+    state: directory
+    suffix: conan_server
+  register: conan_server_tempdir
+
+- name: Create conan server datadir
+  file:
+    path: "{{ conan_server_tempdir.path }}/data"
+    state: directory
+
+- name: Copy conan server conf
+  template:
+    src: server.conf
+    dest: "{{ conan_server_tempdir.path }}/server.conf"
+
+- name: Reset connection so that conan is in path
+  meta: reset_connection
+
+- name: Add local conan registry
+  command: conan remote add -f local http://localhost:9300
+
+- name: Add user for local conan registry
+  command: conan user -s -r local -p hypertrie hypertrie 

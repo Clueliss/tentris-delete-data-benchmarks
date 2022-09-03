@@ -39,8 +39,8 @@
       - maven
     state: present
 
-- name: Install Docker
+- name: Install Podman
   become: yes
   apt:
     package:
-      - podman-docker
+      - podman

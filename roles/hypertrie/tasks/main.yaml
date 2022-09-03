@@ -1,7 +1,41 @@
-- name: Check for tentris
-  stat:
-    path: "{{ target_dir }}/triplestores/tentris/{{ tentris_version }}/tentris_server"
-  register: tentris
+- name: Setup conan server
+  include_role:
+    name: conan_server
+    tasks_from: setup
 
-- include: install.yaml
-  when: not tentris.stat.exists
+- name: Create a temporary build directory
+  tempfile:
+    state: directory
+    suffix: hypertrie
+  register: tempdir
+
+- name: Copy build script
+  copy:
+    src: build_hypertrie.sh
+    dest: "{{ tempdir.path }}"
+
+- name: Copy hypertrie source
+  synchronize:
+    src: "{{ hypertrie_local_dir }}/"
+    dest: "{{ tempdir.path }}/hypertrie_code/"
+    archive: no
+    recursive: yes
+    rsync_opts:
+      - --exclude
+      - "'cmake-build*'"
+      - --exclude
+      - "'build'"
+
+- name: Build hypertrie and upload to local conan
+  shell: "bash build_hypertrie.sh {{ conan_server_tempdir.path }}"
+  args:
+    chdir: "{{ tempdir.path }}"
+  register: debug_hypertrie
+
+- debug: msg="{{ debug_hypertrie.stdout_lines }}"
+- debug: msg="{{ debug_hypertrie.stderr_lines }}"
+
+- name: Delete tempdir
+  file:
+    path: "{{ tempdir.path }}"
+    state: absent

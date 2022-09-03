@@ -1,0 +1,4 @@
+- name: Remove conan server temporary config directory
+  file:
+    path: "{{ conan_server_tempdir.path }}"
+    state: absent

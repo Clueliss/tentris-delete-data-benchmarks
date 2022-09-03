@@ -12,14 +12,21 @@
   register: compressed_dataset
 
 - name: Prepare SWDF query generation
-  command:
-    argv:
-      - "{{ target_dir }}/query_generator/sparql_delete_data_generator"
-      - compress
-      - -o 
-      - "{{ target_dir }}/datasets/swdf/swdf.compressor_state"
-      - "{{ target_dir }}/datasets/swdf/swdf.nt"
+  shell: >
+    {{ target_dir }}/query_generator/sparql_delete_data_generator
+    compress
+    -o {{ target_dir }}/datasets/swdf/swdf.compressor_state
+    {{ target_dir }}/datasets/swdf/swdf.nt
   when: not compressed_dataset.stat.exists
 
 - name: Generate SWDF queries
-  command: "{{ target_dir }}/query_generator/sparql_delete_data_generator generate -s {{ target_dir }}/datasets/swdf/swdf.compressor_state -i {{ target_dir }}/datasets/swdf/swdf.compressed_nt -o {{ target_dir }}/datasets/swdf/queries.txt {{ swdf_query_specs }}"
+  shell: >
+    {{ target_dir }}/query_generator/sparql_delete_data_generator
+    generate 
+    -s {{ target_dir }}/datasets/swdf/swdf.compressor_state
+    -i {{ target_dir }}/datasets/swdf/swdf.compressed_nt
+    -o {{ target_dir }}/datasets/swdf/queries_{{ item.order }}.txt
+    -r {{ item.order }}
+    randomized
+    {{ swdf_query_specs }}
+  loop: "{{ swdf_query_types }}"
