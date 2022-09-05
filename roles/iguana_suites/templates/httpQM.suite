@@ -12,7 +12,7 @@ tasks:
     configuration:
       noOfQueryMixes: {{ iguana_query_mixes_limit }}
       queryHandler:
-        className: "DelimInstancesQueryHandler"
+        className: "InstancesQueryHandler"
       workers:
         - threads: {{ item[2].number }}
           className: "HttpPostWorker"

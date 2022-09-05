@@ -27,9 +27,3 @@
 
 - name: Reset connection so that conan is in path
   meta: reset_connection
-
-- name: Add local conan registry
-  command: conan remote add -f local http://localhost:9300
-
-- name: Add user for local conan registry
-  command: conan user -s -r local -p hypertrie hypertrie 
