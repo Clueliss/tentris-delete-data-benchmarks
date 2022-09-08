@@ -21,6 +21,17 @@
     src: "{{ tempdir.path }}/swdf.zip"
     dest: "{{ target_dir }}/datasets/swdf/"
 
+- name: Copy SWDF queries
+  copy:
+    src: "{{ swdf_queries_file }}"
+    dest: "{{ tempdir.path }}/swdf-queries.zip"
+
+- name: Unzip SWDF queries
+  unarchive:
+    remote_src: yes
+    src: "{{ tempdir.path }}/swdf-queries.zip"
+    dest: "{{ target_dir }}/datasets/swdf/"
+
 - name: Delete tempdir
   file:
     path: "{{ tempdir.path }}"

@@ -10,7 +10,7 @@ fi
 echo $(date --iso-8601) - Starting gStore
 
 cd {{ target_dir }}/databases/gstore/{{ item[1].name }}
-{{ target_dir }}/triplestores/gstore/bin/ghttp {{ item[1].name }} </dev/null 2>&1 >{{ target_dir }}/logs/run/gstore-{{ item[1].name }}-{{ item[2].number }}.log & disown
+{{ target_dir }}/triplestores/gstore/bin/ghttp {{ item[1].name }} </dev/null 2>&1 >{{ target_dir }}/logs/run/gstore-{{ item[1].name }}.log & disown
 pid=$!
 
 echo $pid > {{ target_dir }}/gstore.pid

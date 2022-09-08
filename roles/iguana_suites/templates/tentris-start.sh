@@ -14,7 +14,7 @@ echo $(date --iso-8601) - Starting Tentris
     --storage {{ target_dir }}/databases/tentris/{{ item[0] }}/{{ item[1].name }} \
     --logfile false \
     --logstdout \
-    </dev/null 2>&1 >{{ target_dir }}/logs/run/tentris-{{ item[0] }}-{{ item[1].name }}-{{ item[2].number }}.log & disown
+    </dev/null 2>&1 >{{ target_dir }}/logs/run/tentris-{{ item[0] }}-{{ item[1].name }}.log & disown
 
 pid=$!
 

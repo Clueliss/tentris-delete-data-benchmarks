@@ -24,21 +24,16 @@
       - -o
       - "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.nt"
 
-- name: Download DBpedia changesets
-  shell: "wget -nc -r --accept '*.removed.nt.gz' https://downloads.dbpedia.org/live/changesets/2015/11/"
-  args:
-    chdir: "{{ tempdir.path }}"
-
-- name: Decompress DBpedia changesets
-  shell: "gunzip -r downloads.dbpedia.org"
-  args:
-    chdir: "{{ tempdir.path }}"
-
-- name: Move DBpedia changesets
+- name: Copy DBpedia2015 queries
   copy:
+    src: "{{ dbpedia_queries_file }}"
+    dest: "{{ tempdir.path }}/dbpedia-queries.zip"
+
+- name: Unzip DBpedia2015 queries
+  unarchive:
     remote_src: yes
-    src: "{{ tempdir.path }}/downloads.dbpedia.org/live/changesets"
-    dest: "{{ target_dir }}/datasets/dbpedia2015/changesets"
+    src: "{{ tempdir.path }}/dbpedia-queries.zip"
+    dest: "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
 
 - name: Delete tempdir
   file:

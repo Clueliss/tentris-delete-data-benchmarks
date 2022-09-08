@@ -6,27 +6,43 @@
 - include: download.yaml
   when: not dataset_dir.stat.exists
 
-- name: Check for compressed SWDF dataset
-  stat:
-    path: "{{ target_dir }}/datasets/swdf/swdf.compressed_nt"
-  register: compressed_dataset
-
-- name: Prepare SWDF query generation
-  shell: >
-    {{ target_dir }}/query_generator/sparql_delete_data_generator
-    compress
-    -o {{ target_dir }}/datasets/swdf/swdf.compressor_state
-    {{ target_dir }}/datasets/swdf/swdf.nt
-  when: not compressed_dataset.stat.exists
-
-- name: Generate SWDF queries
-  shell: >
-    {{ target_dir }}/query_generator/sparql_delete_data_generator
-    generate 
-    -s {{ target_dir }}/datasets/swdf/swdf.compressor_state
-    -i {{ target_dir }}/datasets/swdf/swdf.compressed_nt
-    -o {{ target_dir }}/datasets/swdf/queries_{{ item.order }}.txt
-    -r {{ item.order }}
-    randomized
-    {{ swdf_query_specs }}
-  loop: "{{ swdf_query_types }}"
+#- name: Check for compressed SWDF dataset
+#  stat:
+#    path: "{{ target_dir }}/datasets/swdf/swdf.compressed_nt"
+#  register: compressed_dataset
+#
+#- name: Prepare SWDF query generation
+#  shell: >
+#    {{ target_dir }}/query_generator/sparql_delete_data_generator
+#    compress
+#    -o {{ target_dir }}/datasets/swdf/swdf.compressor_state
+#    {{ target_dir }}/datasets/swdf/swdf.nt
+#  when: not compressed_dataset.stat.exists
+#
+#- name: Generate SWDF queries
+#  shell: >
+#    {{ target_dir }}/query_generator/sparql_delete_data_generator
+#    generate 
+#    -s {{ target_dir }}/datasets/swdf/swdf.compressor_state
+#    -i {{ target_dir }}/datasets/swdf/swdf.compressed_nt
+#    -o {{ target_dir }}/datasets/swdf/queries.txt
+#    randomized
+#    --allow-duplicates
+#    {{ swdf_query_specs }}
+#
+#- name: Split SWDF queries into multiple files
+#  shell: >
+#    split
+#    --lines=1
+#    --numeric-suffixes
+#    --additional-suffix=.txt
+#    queries.txt
+#    queries
+#  args:
+#    chdir: "{{ target_dir }}/datasets/swdf"
+#
+#- name: Rename split SWDF queries
+#  shell: >
+#    mv queries1
+#  args:
+#    chdir: "{{ target_dir }}/datasets/swdf"

@@ -1,3 +1,8 @@
+- name: Check for DBpedia2015 queries
+  stat:
+    path: "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
+  register: dbpedia_queries
+
 - name: Check for the DBpedia2015 dataset
   stat:
     path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.nt"
@@ -11,36 +16,3 @@
 
 - include: download.yaml
   when: not dataset2015_nt.stat.exists
-
-- name: Check for compressed DBpedia2015 dataset
-  stat:
-    path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.compressed_nt"
-  register: compressed_dataset
-
-- name: Prepare DBpedia query generation
-  shell: >
-    {{ target_dir }}/query_generator/sparql_delete_data_generator"
-    compress
-    -r
-    -o {{ target_dir }}/datasets/dbpedia2015/dbpedia.compressor_state
-    {{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.nt
-    {{ target_dir }}/datasets/dbpedia2015/changesets
-  when: not compressed_dataset.stat.exists
-
-- name: Delete existing queries
-  file: "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
-  state: absent
-
-- name: Generate new DBpedia queries
-  shell: >
-    {{ target_dir }}/query_generator/sparql_delete_data_generator
-    generate
-    -s {{ target_dir }}/datasets/dbpedia2015/dbpedia.compressor_state
-    -i {{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.compressed_nt
-    -o {{ target_dir }}/datasets/dbpedia2015/queries_{{ item.order }}_{{ item.type }}.txt
-    -r {{ item.order }}
-    changeset
-    -c {{ target_dir }}/datasets/dbpedia2015/changesets
-    -t {{ item.type }}
-    {{ dbpedia_query_specs }}
-  loop: "{{ dbpedia_query_types }}"

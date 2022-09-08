@@ -1,0 +1,137 @@
+datasets:
+  - name: "swdf"
+
+connections:
+  - name: "{{ item.name }}"
+    endpoint: "{{ item.endpoint | replace('%d', 'swdf') }}"
+    updateEndpoint: "{{ item.updateEndpoint | replace('%d', 'swdf') }}"
+
+tasks:
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-10%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-20%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-30%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-40%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-50%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-60%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-70%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-80%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-90%.txt"
+          timeOut: {{ iguana_time_limit }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-100%.txt"
+          timeOut: {{ iguana_time_limit }}
+
+preScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/start-fresh.sh"
+postScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/stop-fresh.sh"
+
+#optional otherwise the same metrics will be used as default
+metrics:
+  - className: "QMPH"
+  - className: "QPS"
+  - className: "NoQPH"
+  - className: "AvgQPS"
+  - className: "NoQ"
+  - className: "EachQuery"
+
+
+storages:
+  - className: "NTFileStorage"
+    configuration:
+      fileName: results_{{ item.name }}-swdf.nt
