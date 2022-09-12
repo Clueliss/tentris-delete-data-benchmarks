@@ -108,3 +108,16 @@
     src: tentris-http-swdf.suite
     dest: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/swdf/1.yml"
   loop: "{{ tentris_versions }}"
+
+
+- name: Template copy SWDF suite run script
+  template:
+    src: iguana-run-swdf.sh
+    dest: "{{ target_dir }}"
+    mode: 0775
+
+- name: Template copy DBpedia2015 suite run script
+  template:
+    src: iguana-run-dbpedia2015.sh
+    dest: "{{ target_dir }}"
+    mode: 0775

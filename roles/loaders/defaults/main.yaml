@@ -7,8 +7,6 @@ datasets:
   - name: dbpedia2015
     path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.nt"
     queries_path: "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
-    query_types:
-      - ignore
     max_ram: 398475132
 
 #  - name: watdiv10
@@ -34,10 +32,10 @@ datasets:
 
 triplestores:
   - fuseki
-  - fuseki-ltj
+#  - fuseki-ltj
   - gstore
   - virtuoso
-#  - graphdb
+  - graphdb
   - blazegraph
 
 load_max_ram: 700000000 # in KByte

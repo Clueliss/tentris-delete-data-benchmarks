@@ -6,7 +6,7 @@
 
 - name: Download Iguana
   get_url:
-    url: https://github.com/dice-group/IGUANA/releases/download/v{{ iguana_version }}/iguana-{{ iguana_version }}.zip
+    url: https://github.com/Clueliss/IGUANA/releases/download/v{{ iguana_version }}/iguana-{{ iguana_version }}.zip
     dest: "{{ tempdir.path }}/iguana-{{ iguana_version }}.zip"
 
 - name: Unzip Iguana
@@ -19,7 +19,7 @@
   find:
     path: "{{ tempdir.path }}/iguana"
     recurse: yes
-    pattern: iguana-{{ iguana_version }}.jar
+    pattern: iguana*-{{ iguana_version }}.jar
   register: find_jar
 
 - name: Create Iguana Directory

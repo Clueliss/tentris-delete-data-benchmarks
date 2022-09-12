@@ -1,21 +1,27 @@
 iguana_time_limit: 3600000
-iguana_query_mixes_limit: 30
+iguana_repetitions: 30
 iguana_query_timeout: 180000
 triplestores_http:
   - name: fuseki
     endpoint: http://localhost:3030/%d/sparql
     updateEndpoint: http://localhost:3030/%d/update
-  - name: fuseki-ltj
-    endpoint: http://localhost:3030/%d/sparql
-    updateEndpoint: http://localhost:3030/%d/update
-  - name: gstore
-    endpoint: http://localhost:9000/?db_name=%d
-    updateEndpoint: http://localhost:9000/?db_name=%d
+
+#  - name: fuseki-ltj
+#    endpoint: http://localhost:3030/%d/sparql
+#    updateEndpoint: http://localhost:3030/%d/update
+
+#  - name: gstore
+#    endpoint: http://localhost:9000/?db_name=%d
+#    updateEndpoint: http://localhost:9000/?db_name=%d
+
   - name: virtuoso
     endpoint: http://localhost:8890/sparql
     updateEndpoint: http://localhost:8890/sparql
-#  - name: graphdb
-#    connection_url: http://localhost:7200/repositories/%d
+
+  - name: graphdb
+    endpoint: http://localhost:7200/repositories/%d
+    updateEndpoint: http://localhost:7200/repositories/%d
+
   - name: blazegraph
     endpoint: http://localhost:9999/blazegraph/sparql
     updateEndpoint: http://localhost:9999/blazegraph/sparql

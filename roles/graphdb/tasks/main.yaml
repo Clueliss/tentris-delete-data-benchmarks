@@ -1,6 +1,6 @@
 - name: Check for GraphDB
   stat:
-    path: "{{ target_dir }}/triplestores/graphdb/graphdb-free-{{ graphdb_version }}/"
+    path: "{{ target_dir }}/triplestores/graphdb/graphdb-{{ graphdb_version }}/"
   register: graphdb_dir
 
 - include: install.yaml

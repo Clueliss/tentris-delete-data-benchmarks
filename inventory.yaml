@@ -6,6 +6,6 @@ all:
       ansible_host: 192.168.122.82
       ansible_user: liss
 
-      graphdb_download_uuid: ""
+      graphdb_local_zip_path: "/home/liss/Downloads/graphdb-10.0.2-dist.zip"
       hypertrie_local_dir: ../hypertrie-private
       tentris_local_dir: ../tentris-private

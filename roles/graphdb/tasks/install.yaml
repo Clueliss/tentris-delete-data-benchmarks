@@ -3,24 +3,7 @@
     path: "{{ target_dir }}/triplestores/graphdb"
     state: directory
 
-- name: Create a tempory download directory
-  tempfile:
-    state: directory
-    suffix: graphdb
-  register: tempdir
-
-- name: Download GraphDB
-  shell: wget -O "{{ tempdir.path }}/graphdb-free-{{ graphdb_version }}-dist.zip" https://download.ontotext.com/owlim/{{ graphdb_download_uuid }}/graphdb-free-{{ graphdb_version }}-dist.zip
-  args:
-    creates: "{{ tempdir.path }}/graphdb-free-{{ graphdb_version }}-dist.zip"
-
-- name: Unzip GraphDB
+- name: Copy and unzip GraphDB
   unarchive:
-    remote_src: yes
-    src: "{{ tempdir.path }}/graphdb-free-{{ graphdb_version }}-dist.zip"
+    src: "{{ graphdb_local_zip_path }}"
     dest: "{{ target_dir }}/triplestores/graphdb/"
-
-- name: Delete tempdir
-  file:
-    path: "{{ tempdir.path }}"
-    state: absent
