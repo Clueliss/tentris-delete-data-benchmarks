@@ -1,5 +1,5 @@
 iguana_time_limit: 3600000
-iguana_repetitions: 30
+iguana_repetitions: 2 # TODO CHANGE
 iguana_query_timeout: 180000
 triplestores_http:
   - name: fuseki
@@ -14,13 +14,13 @@ triplestores_http:
 #    endpoint: http://localhost:9000/?db_name=%d
 #    updateEndpoint: http://localhost:9000/?db_name=%d
 
-  - name: virtuoso
-    endpoint: http://localhost:8890/sparql
-    updateEndpoint: http://localhost:8890/sparql
+#  - name: virtuoso
+#    endpoint: http://localhost:8890/sparql
+#    updateEndpoint: http://localhost:8890/sparql
 
   - name: graphdb
     endpoint: http://localhost:7200/repositories/%d
-    updateEndpoint: http://localhost:7200/repositories/%d
+    updateEndpoint: http://localhost:7200/repositories/%d/statements
 
   - name: blazegraph
     endpoint: http://localhost:9999/blazegraph/sparql

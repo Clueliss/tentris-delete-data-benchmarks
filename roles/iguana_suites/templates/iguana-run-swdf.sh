@@ -13,7 +13,7 @@ done
 # tentris-{{ version }}
 for run in {1..{{ iguana_repetitions }}}; do
     echo "run: $run"
-    {{ target_dir }}/iguana-run.sh {{ target_dir }}/iguana_suites/http/tentris/{{ version }}/swdf/1.yml
+    {{ target_dir }}/iguana-run.sh {{ target_dir }}/iguana_suites/http/tentris-{{ version }}/swdf/1.yml
 done
 
 {% endfor %}

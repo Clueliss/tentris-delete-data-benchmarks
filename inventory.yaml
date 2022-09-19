@@ -9,3 +9,5 @@ all:
       graphdb_local_zip_path: "/home/liss/Downloads/graphdb-10.0.2-dist.zip"
       hypertrie_local_dir: ../hypertrie-private
       tentris_local_dir: ../tentris-private
+      swdf_queries_file:  /home/liss/Dokumente/swdf/swdf-queries.zip
+      dbpedia2015_queries_file: /home/liss/Dokumente/dbpedia/dbpedia-queries.zip

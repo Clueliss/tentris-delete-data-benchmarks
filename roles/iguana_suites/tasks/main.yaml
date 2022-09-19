@@ -15,11 +15,11 @@
     state: directory
   loop: "{{ tentris_versions | product(datasets) | list }}"
 
-- name: Template copy virtuoso config
-  template:
-    src: virtuoso-run.ini
-    dest: "{{ target_dir }}/triplestores/virtuoso/virtuoso-run-{{ item.name }}.ini"
-  loop: "{{ datasets }}"
+#- name: Template copy virtuoso config
+#  template:
+#    src: virtuoso-run.ini
+#    dest: "{{ target_dir }}/triplestores/virtuoso/virtuoso-run-{{ item.name }}.ini"
+#  loop: "{{ datasets }}"
 
 
 

@@ -26,7 +26,7 @@
 
 - name: Copy DBpedia2015 queries
   copy:
-    src: "{{ dbpedia_queries_file }}"
+    src: "{{ dbpedia2015_queries_file }}"
     dest: "{{ tempdir.path }}/dbpedia-queries.zip"
 
 - name: Unzip DBpedia2015 queries

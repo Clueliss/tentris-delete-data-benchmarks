@@ -2,7 +2,7 @@ datasets:
   - name: swdf
     path: "{{ target_dir }}/datasets/swdf/swdf.nt"
     queries_path: "{{ target_dir }}/datasets/swdf/swdf-queries-%type.txt"
-    max_ram: 2097152
+    max_ram: 20971520 # TODO CHANGE 2097152
 
   - name: dbpedia2015
     path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia_2015-10_en_wo-comments_c.nt"
@@ -33,9 +33,9 @@ datasets:
 triplestores:
   - fuseki
 #  - fuseki-ltj
-  - gstore
-  - virtuoso
+#  - gstore
+#  - virtuoso
   - graphdb
   - blazegraph
 
-load_max_ram: 700000000 # in KByte
+load_max_ram: 30000000 # TODO CHANGE 700000000 # in KByte

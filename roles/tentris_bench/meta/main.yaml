@@ -5,9 +5,9 @@ dependencies:
 #  - role: dataset_wikidata-20201111
   - role: tentris
   - role: fuseki
-  - role: gstore
-  - role: virtuoso
-#  - role: graphdb
+#  - role: gstore
+#  - role: virtuoso
+  - role: graphdb
   - role: blazegraph
   - role: loaders
   - role: iguana

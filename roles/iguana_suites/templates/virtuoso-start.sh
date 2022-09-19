@@ -7,6 +7,11 @@ then
     exit 1
 fi
 
+
+echo $(date --iso-8601) - Setting update permissions
+{{ target_dir }}/triplestores/virtuoso/{{ virtuoso_version }}/virtuoso-opensource/bin/isql 'exec=grant SPARQL_UPDATE to "SPARQL"'
+
+
 echo $(date --iso-8601) - Starting Virtuoso
 
 {{ target_dir }}/triplestores/virtuoso/{{ virtuoso_version }}/virtuoso-opensource/bin/virtuoso-t -c {{ target_dir }}/triplestores/virtuoso/virtuoso-run-{{ item[1].name }}.ini

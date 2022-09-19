@@ -13,7 +13,7 @@ dir=$(pwd)
 
 cd {{ target_dir }}/triplestores/fuseki-ltj/apache-jena-fuseki-ltj
 
-java -Xmx{{ item[1].max_ram }}K -XX:ActiveProcessorCount=1 -jar {{ target_dir }}/triplestores/fuseki-ltj/fuseki-leapfrog.jar --loc={{ target_dir }}/databases/fuseki-ltj/{{ item[1].name }} /{{ item[1].name }} </dev/null 2>&1 >{{ target_dir }}/logs/run/fuseki-ltj-{{ item[1].name }}.log & disown
+java -Xmx{{ item[1].max_ram }}K -XX:ActiveProcessorCount=1 -jar {{ target_dir }}/triplestores/fuseki-ltj/fuseki-leapfrog.jar --update --loc={{ target_dir }}/databases/fuseki-ltj/{{ item[1].name }} /{{ item[1].name }} </dev/null 2>&1 >{{ target_dir }}/logs/run/fuseki-ltj-{{ item[1].name }}.log & disown
 pid=$!
 
 echo $pid > {{ target_dir }}/fuseki-ltj.pid

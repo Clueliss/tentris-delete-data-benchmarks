@@ -19,7 +19,7 @@ rm -rf {{ target_dir }}/databases/{{ triplestore_http.name }}/dbpedia2015
 
 for run in {1..{{ iguana_repetitions }}}; do
     echo "run: $run"
-    {{ target_dir }}/iguana-run.sh {{ target_dir }}/iguana_suites/http/tentris/{{ version }}/dbpedia2015/1.yml
+    {{ target_dir }}/iguana-run.sh {{ target_dir }}/iguana_suites/http/tentris-{{ version }}/dbpedia2015/1.yml
 done
 
 rm -rf {{ target_dir }}/databases/tentris/{{ version }}/dbpedia2015

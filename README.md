@@ -18,13 +18,29 @@ Prepare your Ansible inventory.
 Ansible usues a so called inventory to know which managed nodes to connect to and apply some settings to hosts.  
 A inventory template can be found in `inventory.yaml.example`.
 
-#### GraphDB download uuid
+#### graphdb_local_zip_path
 
 GraphDB is a commercial product and requires a license to download.  
 You can get a free license here: https://www.ontotext.com/products/graphdb/graphdb-free/  
 After filling out the form, you will receive an e-mail containing a download link.
-Use it to download the file, right click on the download in your browser and select the `Copy download link` option.  
-The download link should look like this: `https://download.ontotext.com/owlim/<Your GraphDB UUID>/graphdb-free-9.1.1-dist.zip`
+Use it to download the file and store it somewhere on your machine.
+Then set graphdb_local_zip_path to the path to the file you just downloaded.
+
+#### hypertrie_local_dir and tentris_local_dir
+
+During development the required features for removal were not yet included in the public
+releases of tentris or hypertrie. They are instead located in the private repositories.
+So clone a version of hypertrie and tentris that support entry removal to your
+local machine and set the corresponding paths.
+
+
+#### swdf_queries_file and dbpedia2015_queries_file
+
+The query files are quite large and are thus not stored in this repo
+instead you can download them from my [google drive](https://drive.google.com/drive/folders/17_K3CN2kyWPEdlwUbezpZvMowtSWMa3A?usp=sharing).
+Then set the corresponding paths to the paths of the zip files.
+
+
 
 ### Playbook execution
 
