@@ -8,6 +8,7 @@
 - name: install conan server
   pip:
     name: conan
+    extra_args: --user
 
 - name: Create a temporary conan server config directory
   tempfile:
@@ -24,6 +25,3 @@
   template:
     src: server.conf
     dest: "{{ conan_server_tempdir.path }}/server.conf"
-
-- name: Reset connection so that conan is in path
-  meta: reset_connection

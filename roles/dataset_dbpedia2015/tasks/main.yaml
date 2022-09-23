@@ -1,6 +1,6 @@
 - name: Check for DBpedia2015 queries
   stat:
-    path: "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
+    path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries1.txt"
   register: dbpedia_queries
 
 - name: Check for the DBpedia2015 dataset
@@ -16,3 +16,6 @@
 
 - include: download.yaml
   when: not dataset2015_nt.stat.exists
+
+- include: copy_queries.yml
+  when: not dbpedia_queries.stat.exists

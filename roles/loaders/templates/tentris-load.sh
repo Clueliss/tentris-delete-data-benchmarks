@@ -2,7 +2,7 @@
 
 mkdir -p {{ target_dir }}/databases/tentris/{{ item[0] }}
 
-cgmemtime  {{ target_dir }}/triplestores/tentris/{{ item[0] }}/tentris_loader \
+{{ target_dir }}/triplestores/tentris/{{ item[0] }}/tentris_loader \
     --logfile false \
     --logstdout \
     --file {{ item[1].path }} \

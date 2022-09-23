@@ -3,11 +3,11 @@ all:
     lvu-tentris-bench:
     # A short name for your managed node, for example tentris-bench-vm
 
-      ansible_host: 192.168.122.82
-      ansible_user: liss
+      ansible_host: ***REMOVED***
+      ansible_user: ***REMOVED***
 
       graphdb_local_zip_path: "/home/liss/Downloads/graphdb-10.0.2-dist.zip"
       hypertrie_local_dir: ../hypertrie-private
       tentris_local_dir: ../tentris-private
-      swdf_queries_file:  /home/liss/Dokumente/swdf/swdf-queries.zip
+      swdf_queries_file: /home/liss/Dokumente/swdf/swdf-queries.zip
       dbpedia2015_queries_file: /home/liss/Dokumente/dbpedia/dbpedia-queries.zip

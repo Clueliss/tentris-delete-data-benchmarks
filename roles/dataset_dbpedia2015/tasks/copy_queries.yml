@@ -1,0 +1,21 @@
+- name: Create a tempory download directory
+  tempfile:
+    state: directory
+    suffix: dbpedia2015_queries
+  register: tempdir
+
+- name: Copy DBpedia2015 queries
+  copy:
+    src: "{{ dbpedia2015_queries_file }}"
+    dest: "{{ tempdir.path }}/dbpedia-queries.zip"
+
+- name: Unzip DBpedia2015 queries
+  unarchive:
+    remote_src: yes
+    src: "{{ tempdir.path }}/dbpedia-queries.zip"
+    dest: "{{ target_dir }}/datasets/dbpedia2015/"
+
+- name: Delete tempdir
+  file:
+    path: "{{ tempdir.path }}"
+    state: absent

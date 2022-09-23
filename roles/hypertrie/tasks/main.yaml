@@ -14,6 +14,11 @@
     src: build_hypertrie.sh
     dest: "{{ tempdir.path }}"
 
+- name: Copy Dockerfile
+  copy:
+    src: Dockerfile
+    dest: "{{ tempdir.path }}"
+
 - name: Copy hypertrie source
   synchronize:
     src: "{{ hypertrie_local_dir }}/"

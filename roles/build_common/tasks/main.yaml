@@ -39,8 +39,18 @@
       - maven
     state: present
 
-- name: Install Podman
+- name: Install Docker
   become: yes
   apt:
-    package:
-      - podman
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+
+- name: Add docker group
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes

@@ -7,21 +7,49 @@ connections:
     updateEndpoint: "http://localhost:9080/sparql-update"
 
 tasks:
-- className: "Stresstest"
-  configuration:
-    # 1 hour (time Limit is in ms)
-    timeLimit: {{ iguana_time_limit }}
-    queryHandler:
-      className: "InstancesQueryHandler"
-    workers:
-      - threads: 1
-        className: "HttpPostWorker"
-        contentType: application/sparql-update
-        queriesFile: "{{ target_dir }}/datasets/dbpedia2015/queries.txt"
-        timeOut: {{ iguana_query_timeout }}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries1.txt"
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries2.txt"
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries3.txt"
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries4.txt"
 
-preScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/dbpedia2015/start.sh"
-postScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/stop.sh"
+#preScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/dbpedia2015/start.sh"
+#postScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/stop.sh"
 
 #optional otherwise the same metrics will be used as default
 metrics:
