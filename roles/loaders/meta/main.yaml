@@ -8,3 +8,5 @@ dependencies:
 #  - role: virtuoso
   - role: graphdb
   - role: blazegraph
+  - role: dataset_swdf
+  - role: dataset_dbpedia2015

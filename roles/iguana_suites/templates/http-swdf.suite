@@ -7,6 +7,7 @@ connections:
     updateEndpoint: "{{ item.updateEndpoint | replace('%d', 'swdf') }}"
 
 tasks:
+{% for item in datasets[0].query_percentages | product(datasets[0].query_variations) %}
   - className: "Stresstest"
     configuration:
       noOfQueryMixes: 1
@@ -16,107 +17,9 @@ tasks:
         - threads: 1
           className: "HttpPostWorker"
           contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-10%.txt"
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-query-{{ item[0] }}%-{{ item[1] }}.txt"
           timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-20%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-30%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-40%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-50%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-60%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-70%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-80%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-90%.txt"
-          timeOut: {{ iguana_time_limit }}
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-queries-100%.txt"
-          timeOut: {{ iguana_time_limit }}
+{% endfor %}
 
 preScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/start-fresh.sh"
 postScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/stop-fresh.sh"

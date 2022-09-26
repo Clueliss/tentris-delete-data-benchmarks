@@ -1,5 +1,5 @@
 iguana_time_limit: 3600000
-iguana_repetitions: 10
+iguana_repetitions: 3
 iguana_query_timeout: 180000
 triplestores_http:
   - name: fuseki
