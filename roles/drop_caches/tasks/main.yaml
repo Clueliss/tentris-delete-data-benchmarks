@@ -1,0 +1,7 @@
+- name: Check for drop caches
+  stat:
+    path: /usr/local/bin/drop_caches
+  register: drop_caches_exe
+
+- include_tasks: install.yaml
+  when: not drop_caches_exe.stat.exists

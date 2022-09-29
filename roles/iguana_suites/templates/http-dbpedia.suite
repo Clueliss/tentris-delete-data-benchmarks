@@ -16,37 +16,7 @@ tasks:
         - threads: 1
           className: "HttpPostWorker"
           contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries1.txt"
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries2.txt"
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries3.txt"
-  - className: "Stresstest"
-    configuration:
-      noOfQueryMixes: 1
-      queryHandler:
-        className: "InstancesQueryHandler"
-      workers:
-        - threads: 1
-          className: "HttpPostWorker"
-          contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries4.txt"
+          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries.txt"
 
 #preScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/dbpedia2015/start.sh"
 #postScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/stop.sh"

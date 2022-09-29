@@ -13,7 +13,7 @@ echo $(date --iso-8601) - Starting Tentris
     --loglevel debug \
     --storage {{ target_dir }}/databases/tentris/{{ item[0] }}/{{ item[1].name }} \
     --logfile false \
-    --timeout 3600
+    --timeout 3600 \
     --logstdout \
     </dev/null 2>&1 >{{ target_dir }}/logs/run/tentris-{{ item[0] }}-{{ item[1].name }}.log & disown
 

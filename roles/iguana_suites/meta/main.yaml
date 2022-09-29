@@ -2,3 +2,4 @@ dependencies:
   - role: base
   - role: iguana
   - role: loaders
+  - role: drop_caches

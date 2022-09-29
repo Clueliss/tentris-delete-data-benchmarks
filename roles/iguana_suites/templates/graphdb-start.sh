@@ -11,7 +11,7 @@ echo $(date --iso-8601) - Starting GraphDB
 
 export GDB_HEAP_SIZE={{ item[1].max_ram }}K
 
-{{ target_dir }}/triplestores/graphdb/graphdb-{{ graphdb_version }}/bin/graphdb -XX:ActiveProcessorCount=1 -d -p {{ target_dir }}/graphdb.pid -s -Dgraphdb.home={{ target_dir }}/databases/graphdb/{{ item[1].name }}
+{{ target_dir }}/triplestores/graphdb/graphdb-{{ graphdb_version }}/bin/graphdb -XX:ActiveProcessorCount=120 -d -p {{ target_dir }}/graphdb.pid -s -Dgraphdb.home={{ target_dir }}/databases/graphdb/{{ item[1].name }}
 
 echo $(date --iso-8601) - Waiting for GraphDB to become available
 
