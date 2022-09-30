@@ -16,7 +16,7 @@ tasks:
         - threads: 1
           className: "HttpPostWorker"
           contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries.txt"
+          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-changeset-queries.txt"
 
 #preScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/dbpedia2015/start.sh"
 #postScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/stop.sh"

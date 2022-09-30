@@ -1,10 +1,10 @@
 datasets:
-  - name: "swdf"
+  - name: "dbpedia2015"
 
 connections:
   - name: "{{ item.name }}"
-    endpoint: "{{ item.endpoint | replace('%d', 'swdf') }}"
-    updateEndpoint: "{{ item.updateEndpoint | replace('%d', 'swdf') }}"
+    endpoint: "{{ item.endpoint | replace('%d', 'dbpedia2015') }}"
+    updateEndpoint: "{{ item.updateEndpoint | replace('%d', 'dbpedia2015') }}"
 
 tasks:
 {% for item in datasets[0].query_percentages | product(datasets[0].query_variations) %}
@@ -18,11 +18,10 @@ tasks:
           className: "HttpPostWorker"
           contentType: application/sparql-update
           queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-query-{{ item[0] }}%-{{ item[1] }}.txt"
-          timeOut: {{ iguana_time_limit }}
 {% endfor %}
 
-preScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/dbpedia/start-fresh.sh"
-postScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/dbpedia/stop-fresh.sh"
+preScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/dbpedia2015/start-fresh.sh"
+postScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/dbpedia2015/stop-fresh.sh"
 
 #optional otherwise the same metrics will be used as default
 metrics:
