@@ -34,7 +34,7 @@ triplestores:
   - fuseki
 #  - fuseki-ltj
 #  - gstore
-#  - virtuoso
+  - virtuoso
   - graphdb
   - blazegraph
 

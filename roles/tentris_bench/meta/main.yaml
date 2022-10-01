@@ -6,7 +6,7 @@ dependencies:
   - role: tentris
   - role: fuseki
 #  - role: gstore
-#  - role: virtuoso
+  - role: virtuoso
   - role: graphdb
   - role: blazegraph
   - role: loaders

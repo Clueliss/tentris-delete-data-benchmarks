@@ -1,6 +1,6 @@
 - name: Check for DBpedia2015 queries
   stat:
-    path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-queries.txt"
+    path: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-changeset-queries.txt"
   register: dbpedia_queries
 
 - name: Check for the DBpedia2015 dataset

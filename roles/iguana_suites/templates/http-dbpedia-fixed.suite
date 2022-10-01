@@ -36,4 +36,4 @@ metrics:
 storages:
   - className: "NTFileStorage"
     configuration:
-      fileName: results_{{ item.name }}-dbpedia-fixed.nt
+      fileName: results_{{ item.name }}-dbpedia2015-fixed.nt

@@ -8,12 +8,7 @@ then
 fi
 
 
-echo $(date --iso-8601) - Setting update permissions
-{{ target_dir }}/triplestores/virtuoso/{{ virtuoso_version }}/virtuoso-opensource/bin/isql 'exec=grant SPARQL_UPDATE to "SPARQL"'
-
-
 echo $(date --iso-8601) - Starting Virtuoso
-
 {{ target_dir }}/triplestores/virtuoso/{{ virtuoso_version }}/virtuoso-opensource/bin/virtuoso-t -c {{ target_dir }}/triplestores/virtuoso/virtuoso-run-{{ item[1].name }}.ini
 
 echo $(date --iso-8601) - Waiting for Virtuoso to become available
@@ -27,6 +22,9 @@ do
     fi
     sleep 2
 done
+
+echo $(date --iso-8601) - Setting update permissions
+{{ target_dir }}/triplestores/virtuoso/{{ virtuoso_version }}/virtuoso-opensource/bin/isql 'exec=grant SPARQL_UPDATE to "SPARQL"'
 
 echo $(date --iso-8601) - Virtuoso started and accepting connections
 

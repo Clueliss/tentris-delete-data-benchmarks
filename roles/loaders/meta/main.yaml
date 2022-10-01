@@ -5,7 +5,7 @@ dependencies:
   - role: fuseki
 #  - role: fuseki-ltj
 #  - role: gstore
-#  - role: virtuoso
+  - role: virtuoso
   - role: graphdb
   - role: blazegraph
   - role: dataset_swdf

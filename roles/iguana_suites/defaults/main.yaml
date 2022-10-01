@@ -15,9 +15,9 @@ triplestores_http:
 #    endpoint: http://localhost:9000/?db_name=%d
 #    updateEndpoint: http://localhost:9000/?db_name=%d
 
-#  - name: virtuoso
-#    endpoint: http://localhost:8890/sparql
-#    updateEndpoint: http://localhost:8890/sparql
+  - name: virtuoso
+    endpoint: http://localhost:8890/sparql
+    updateEndpoint: http://localhost:8890/sparql
 
   - name: graphdb
     endpoint: http://localhost:7200/repositories/%d
