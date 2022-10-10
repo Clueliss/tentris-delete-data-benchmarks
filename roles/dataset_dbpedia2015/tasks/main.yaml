@@ -19,3 +19,9 @@
 
 - include: copy_queries.yml
   when: not dbpedia_queries.stat.exists
+
+- name: Download DBpedia fixed warmup queries
+  get_url:
+    url: https://hobbitdata.informatik.uni-leipzig.de/tentris_compression/feasible-DBpedia-bgp-v2.txt
+    checksum: sha1:10c397a57f4a7d3844194c214cfb2c26ab132d01
+    dest: "{{ target_dir }}/datasets/dbpedia2015/warmup-queries.txt"

@@ -86,6 +86,12 @@
     dest: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/dbpedia2015/fixed.yml"
   loop: "{{ triplestores_http }}"
 
+- name: Template copy Iguana DBpedia fixed2 suites
+  template:
+    src: http-dbpedia-fixed2.suite
+    dest: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/dbpedia2015/fixed2.yml"
+  loop: "{{ triplestores_http }}"
+
 
 - name: Template copy tentris start scripts
   template:
@@ -150,6 +156,12 @@
     dest: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/dbpedia2015/fixed.yml"
   loop: "{{ tentris_versions }}"
 
+- name: Template copy Tentris Iguana DBpedia fixed2 suite
+  template:
+    src: tentris-http-dbpedia-fixed2.suite
+    dest: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/dbpedia2015/fixed2.yml"
+  loop: "{{ tentris_versions }}"
+
 
 - name: Template copy SWDF suite run script
   template:
@@ -166,5 +178,11 @@
 - name: Template copy DBpedia2015 fixed suite run script
   template:
     src: iguana-run-dbpedia2015-fixed.sh
+    dest: "{{ target_dir }}"
+    mode: 0775
+
+- name: Template copy DBpedia2015 fixed2 suite run script
+  template:
+    src: iguana-run-dbpedia2015-fixed2.sh
     dest: "{{ target_dir }}"
     mode: 0775

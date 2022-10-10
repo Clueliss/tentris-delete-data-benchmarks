@@ -7,14 +7,13 @@ connections:
     updateEndpoint: "http://localhost:9080/sparql-update"
 
 tasks:
-{% for item in datasets[0].query_percentages | product(datasets[0].query_variations) %}
   - className: "Stresstest"
     configuration:
       noOfQueryMixes: 1
       queryHandler:
         className: "InstancesQueryHandler"
       warmup:
-        timeLimit: 600000 # 10min
+        timeLimit: 3600000 # 1h
         workers:
           - threads: 1
             className: "HttpGetWorker"
@@ -25,11 +24,7 @@ tasks:
         - threads: 1
           className: "HttpPostWorker"
           contentType: application/sparql-update
-          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-query-{{ item[0] }}%-{{ item[1] }}.txt"
-{% endfor %}
-
-preScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/dbpedia2015/start-fresh.sh"
-postScriptHook: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/dbpedia2015/stop-fresh.sh"
+          queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-fixed-queries-alt.txt"
 
 #optional otherwise the same metrics will be used as default
 metrics:
@@ -44,4 +39,4 @@ metrics:
 storages:
   - className: "NTFileStorage"
     configuration:
-      fileName: results_tentris-{{ item }}-dbpedia2015-fixed.nt
+      fileName: results_tentris-{{ item }}-dbpedia2015-fixed2.nt
