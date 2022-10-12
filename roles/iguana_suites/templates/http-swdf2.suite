@@ -1,0 +1,48 @@
+datasets:
+  - name: "swdf"
+
+connections:
+  - name: "{{ item.name }}"
+    endpoint: "{{ item.endpoint | replace('%d', 'swdf') }}"
+    updateEndpoint: "{{ item.updateEndpoint | replace('%d', 'swdf') }}"
+
+tasks:
+{% for item in datasets[0].query_percentages | product(datasets[0].query_variations) %}
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      warmup:
+        timeLimit: 600000 # 10min
+        workers:
+          - threads: 1
+            className: "HttpGetWorker"
+            language: "lang.SIMPLE"
+            responseType: "application/sparql-results+json"
+            queriesFile: "{{ target_dir }}/datasets/swdf/warmup-queries.txt"
+      workers:
+        - threads: 1
+          className: "HttpPostWorker"
+          contentType: application/sparql-update
+          queriesFile: "{{ target_dir }}/datasets/swdf/swdf-query-{{ item[0] }}%-{{ item[1] }}.txt"
+          timeOut: {{ iguana_time_limit }}
+{% endfor %}
+
+preScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/start-fresh2.sh"
+postScriptHook: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/stop-fresh.sh"
+
+#optional otherwise the same metrics will be used as default
+metrics:
+  - className: "QMPH"
+  - className: "QPS"
+  - className: "NoQPH"
+  - className: "AvgQPS"
+  - className: "NoQ"
+  - className: "EachQuery"
+
+
+storages:
+  - className: "NTFileStorage"
+    configuration:
+      fileName: results_{{ item.name }}-swdf2.nt

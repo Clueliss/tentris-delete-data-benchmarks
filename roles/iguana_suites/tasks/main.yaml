@@ -52,6 +52,13 @@
     mode: 0755
   loop: "{{ triplestores_http }}"
 
+- name: Template copy SWDF start scripts 2
+  template:
+    src: "start-swdf2.sh"
+    dest: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/start-fresh2.sh"
+    mode: 0755
+  loop: "{{ triplestores_http }}"
+
 - name: Template copy SWDF stop scripts
   template:
     src: "stop-swdf.sh"
@@ -65,6 +72,11 @@
     dest: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/1.yml"
   loop: "{{ triplestores_http }}"
 
+- name: Template copy Iguana SWDF suites 2
+  template:
+    src: http-swdf2.suite
+    dest: "{{ target_dir }}/iguana_suites/http/{{ item.name }}/swdf/2.yml"
+  loop: "{{ triplestores_http }}"
 
 - name: Template copy DBpedia fixed start scripts
   template:
@@ -122,6 +134,13 @@
     mode: 0755
   loop: "{{ tentris_versions }}"
 
+- name: Template copy tentris SWDF start scripts 2
+  template:
+    src: tentris-start-swdf2.sh
+    dest: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/swdf/start-fresh2.sh"
+    mode: 0755
+  loop: "{{ tentris_versions }}"
+
 - name: Template copy tentris SWDF stop scripts
   template:
     src: tentris-stop-swdf.sh
@@ -133,6 +152,12 @@
   template:
     src: tentris-http-swdf.suite
     dest: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/swdf/1.yml"
+  loop: "{{ tentris_versions }}"
+
+- name: Template copy Tentris Iguana SWDF suite 2
+  template:
+    src: tentris-http-swdf2.suite
+    dest: "{{ target_dir }}/iguana_suites/http/tentris-{{ item }}/swdf/2.yml"
   loop: "{{ tentris_versions }}"
 
 
@@ -168,6 +193,13 @@
     src: iguana-run-swdf.sh
     dest: "{{ target_dir }}"
     mode: 0775
+
+- name: Template copy SWDF suite 2 run script
+  template:
+    src: iguana-run-swdf2.sh
+    dest: "{{ target_dir }}"
+    mode: 0775
+
 
 - name: Template copy DBpedia2015 suite run script
   template:

@@ -5,3 +5,9 @@
 
 - include: download.yaml
   when: not dataset_dir.stat.exists
+
+- name: Download SWDF queries
+  get_url:
+    url: https://raw.githubusercontent.com/dice-group/iswc2020_tentris/master/queries/SWDF-Queries.txt
+    checksum: sha1:e8c4d295d29f36f11b0b77a1ea83e13ff7333488
+    dest: "{{ target_dir }}/datasets/swdf/warmup-queries.txt"
