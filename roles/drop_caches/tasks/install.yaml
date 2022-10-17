@@ -1,0 +1,25 @@
+- name: Create a tempory directory
+  tempfile:
+    state: directory
+    suffix: drop_caches
+  register: tempdir
+
+- name: Copy drop_caches code
+  copy:
+    src: drop_caches.c
+    dest: "{{ tempdir.path }}"
+
+- name: Compile drop_caches
+  shell: "clang -o drop_caches drop_caches.c"
+  args:
+    chdir: "{{ tempdir.path }}"
+
+- name: Copy drop_caches to /usr/local/bin
+  become: yes 
+  copy:
+    src: "{{ tempdir.path }}/drop_caches"
+    dest: /usr/local/bin/drop_caches
+    owner: root
+    group: root
+    mode: 4755
+    remote_src: yes

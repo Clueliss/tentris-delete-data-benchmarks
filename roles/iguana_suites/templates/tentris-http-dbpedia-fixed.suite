@@ -13,17 +13,10 @@ tasks:
       noOfQueryMixes: 1
       queryHandler:
         className: "InstancesQueryHandler"
-      warmup:
-        timeLimit: 600000 # 10min
-        workers:
-          - threads: 1
-            className: "HttpGetWorker"
-            language: "lang.SIMPLE"
-            responseType: "application/sparql-results+json"
-            queriesFile: "{{ target_dir }}/datasets/dbpedia2015/warmup-queries.txt"
       workers:
         - threads: 1
           className: "HttpPostWorker"
+          timeOut: 600000
           contentType: application/sparql-update
           queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-query-{{ item[0] }}%-{{ item[1] }}.txt"
 {% endfor %}

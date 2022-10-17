@@ -23,6 +23,7 @@ tasks:
       workers:
         - threads: 1
           className: "HttpPostWorker"
+          timeOut: 600000
           contentType: application/sparql-update
           queriesFile: "{{ target_dir }}/datasets/dbpedia2015/dbpedia-fixed-queries-alt.txt"
 

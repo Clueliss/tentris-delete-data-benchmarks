@@ -3,7 +3,6 @@
 {% for triplestore_http in triplestores_http %}
 {{ triplestore_http.name }}() {
     # {{ triplestore_http.name }}
-    drop_caches
     mv {{ target_dir }}/databases/{{ triplestore_http.name }}/dbpedia2015 {{ target_dir }}/databases/{{ triplestore_http.name }}/dbpedia2015.save || exit 1
 
     for run in {1..{{ iguana_swdf_repetitions }}}; do
@@ -19,7 +18,6 @@
 tentris() {
 {% for version in tentris_versions %}
     # tentris-{{ version }}
-    drop_caches
     mv {{ target_dir }}/databases/tentris/{{ version }}/dbpedia2015 {{ target_dir }}/databases/tentris/{{ version }}/dbpedia2015.save || exit 1
 
     for run in {1..{{ iguana_swdf_repetitions }}}; do
